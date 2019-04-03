@@ -161,6 +161,14 @@ _.indexOf = function(array, value) {
 *   _.contains([1,"two", 3.14], "two") -> true
 */
 _.contains = function(array, value) {
+    let index = _.indexOf(array,value);
+    if (index === -1) {
+        return false;
+    } else {
+        return true;
+    }
+    return index;
+    /*
     let condition;
     for (let i = 0; i <= array.length; i++) {
         if (array[i] === value) {
@@ -171,6 +179,7 @@ _.contains = function(array, value) {
         }
     }
     return condition;
+    */
 };
 
 
@@ -278,8 +287,16 @@ _.map = function(collection, func) {
 */
 
 _.reject = function(array, func) {
+    let randomVar = [];
     
-};
+    _.filter(array, function(elt, i, array) {
+        if (func(elt, i, array) === false) {
+            randomVar.push(elt);
+        }
+    })
+    
+    return randomVar;
+}
 
 /** _.partition
 * Arguments:
@@ -299,6 +316,23 @@ _.reject = function(array, func) {
 *   }); -> [[2,4],[1,3,5]]
 }
 */
+
+_.partition = function(array, func) {
+    let allValues = [];
+    let matches = [];
+    let mismatches = [];
+    
+    _.filter(array, function(elt, key, array) {
+        if (func(elt, key, array) === true) {
+            matches.push(elt);
+        } else {
+            mismatches.push(elt);
+        }
+    })
+    allValues.push(matches, mismatches);
+    
+    return allValues;
+}
 
 
 /** _.every
@@ -409,8 +443,15 @@ _.some = function(collection, test) {
 */
 
 _.pluck = function(array, property) {
+    let arr = [];
     
-};
+    _.map(array, function(elt, i, array) {
+       arr.push(elt[property]); 
+    });
+    
+    return arr;
+}
+
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
